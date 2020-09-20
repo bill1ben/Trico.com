@@ -15,4 +15,10 @@ Loading Fixtures
     
     * La librairie **Slugify** nous fournit des opérations de transformation de chaines de caractères a un équivalent compatible en URL
       * Par exemple : "C'est vraiment super" devient "c-est-vraiment-super".
+      
+      
+  * Item 1
+* Item 2
+  * Item 2a
+  * Item 2b
    
