@@ -33,8 +33,10 @@ sans oublier la annotation @ORM\HasLifecycleCallbacks()
   
  upload images
  =============
-     afin que chaque produit à ses propres images j'ai dû gérer l'upload multiple
- 
+     afin que chaque produit à ses propres images j'ai dû gérer l'upload multiple 
+     
+  non seulement que les images doit être enregistré sur le dossier upload/ mais il faut aussi stocker leur nom dans la base de données
+  
    ### La base de données
   
      j'ai créé l'entité /src/Entity/Image.php 
@@ -45,8 +47,20 @@ sans oublier la annotation @ORM\HasLifecycleCallbacks()
   https://github.com/bill1ben/Trico.com/blob/617cd85fc2e775c3331ce27630c980b9fbe5e5ba/src/Entity/Product.php#L45
   
    ### le form
-  
-      https://github.com/bill1ben/Trico.com/blob/617cd85fc2e775c3331ce27630c980b9fbe5e5ba/src/Form/ProductType.php#L28
+ 
+  https://github.com/bill1ben/Trico.com/blob/617cd85fc2e775c3331ce27630c980b9fbe5e5ba/src/Form/ProductType.php#L28
     
    ### dossier upload
-    
+   
+  sur le dossier public j'ai créé le dossier uploads/
+  au niveau du parameters sur service.yaml j'ai ajouté un parameters pour le chemin d'accès au dossier uploads 
+  https://github.com/bill1ben/Trico.com/blob/916f711b6e5891548389f630081eaa354d2540a4/config/services.yaml#L7
+   
+   ### ajouter, modifier, supprimer des images
+   
+
+* la fonction new : https://github.com/bill1ben/Trico.com/blob/916f711b6e5891548389f630081eaa354d2540a4/src/Controller/ProductController.php#L103
+* La edite : https://github.com/bill1ben/Trico.com/blob/916f711b6e5891548389f630081eaa354d2540a4/src/Controller/ProductController.php#L185
+* delet : https://github.com/bill1ben/Trico.com/blob/916f711b6e5891548389f630081eaa354d2540a4/src/Controller/ProductController.php#L245
+  
+  
