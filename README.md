@@ -63,4 +63,5 @@ sans oublier la annotation @ORM\HasLifecycleCallbacks()
 * La edite : https://github.com/bill1ben/Trico.com/blob/916f711b6e5891548389f630081eaa354d2540a4/src/Controller/ProductController.php#L185
 * delet : https://github.com/bill1ben/Trico.com/blob/916f711b6e5891548389f630081eaa354d2540a4/src/Controller/ProductController.php#L245
   
+  le fichier js permet de suprimer les images en faisant des requête ajax : https://github.com/bill1ben/Trico.com/blob/master/public/js/images.js
   
