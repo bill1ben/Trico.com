@@ -65,3 +65,12 @@ sans oublier la annotation @ORM\HasLifecycleCallbacks()
   
   le fichier js permet de suprimer les images en faisant des requête ajax : https://github.com/bill1ben/Trico.com/blob/master/public/js/images.js
   
+ User
+ ====
+    - Sur le site il doit y avoir des utilisateurs afin qu'ils puissent ajouter supprimer des produits. il doit y avoir aussi des pages profils avec leur prénom leur nom , photo       de profile.. et tous les produits partager par l'utilisateur.
+    - un utilisateur peut commenter un produit et donner leur avis..
+    - utilisateurs peuvent modifier leur nom, prénom leur profil en général et le mot de passe **hashè** sur la base de donnè 
+ 
+  ### base de données
+ 
+ 
