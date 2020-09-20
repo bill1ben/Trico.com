@@ -44,6 +44,39 @@ class Product
      */
     private $images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Color::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $colors;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $categories;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=SubCategory::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $subCategories;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slugName;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
+
+
+
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -133,4 +166,68 @@ class Product
 
         return $this;
     }
+
+    public function getColors(): ?Color
+    {
+        return $this->colors;
+    }
+
+    public function setColors(?Color $colors): self
+    {
+        $this->colors = $colors;
+
+        return $this;
+    }
+
+    public function getCategories(): ?Category
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(?Category $categories): self
+    {
+        $this->categories = $categories;
+
+        return $this;
+    }
+
+    public function getSubCategories(): ?SubCategory
+    {
+        return $this->subCategories;
+    }
+
+    public function setSubCategories(?SubCategory $subCategories): self
+    {
+        $this->subCategories = $subCategories;
+
+        return $this;
+    }
+
+    public function getSlugName(): ?string
+    {
+        return $this->slugName;
+    }
+
+    public function setSlugName(?string $slugName): self
+    {
+        $this->slugName = $slugName;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+
+
+
 }

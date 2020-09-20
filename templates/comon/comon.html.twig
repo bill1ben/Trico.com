@@ -1,4 +1,4 @@
-<<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,14 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TRICO - {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('CSS/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('CSS/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('CSS/app.css') }}">
+    {% block styles %}{% endblock %}
 </head>
 <body>
 {% include 'comon/nav.html.twig' %}
+{% for label, messages in app.flashes %}
+    <div class="container">
+        <div class="alert alert-{{ label }}">
+            {% for message in messages %}
+                <p>{{ message | raw}}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
 {% block body %}{% endblock %}
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/popper.min.js') }}"></script>
+<script src="{{ asset('js/jquery.min.js') }}"> </script>
+<script src="{{ asset('js/bootstrap.min.js') }}"> </script>
+<script src="{{ asset('js/popper.min.js') }}"> </script>
+<script src="{{ asset('js/select2.js') }}"> </script>
 {% block javascripts %}{% endblock %}
-
+<script>
+    $('.selectFiltre').select2()
+</script>
 </body>
 </html>

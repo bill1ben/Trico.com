@@ -1,0 +1,39 @@
+<div class="col-md-4">
+    <div class="card bg-light mb-3">
+        <div class="card-header text-center">
+            {{ product.title }}, <strong>{{ product.price }} $</strong> <br>
+            <small>{{ product.description|raw }}</small>
+
+        </div>
+        {% for image in product.images%}
+            {% if image.status == 0 %}
+                <img src='{{ asset("uploads/#{image.name}" ) }}' alt="image" style="height: 200px;width: 100%;display: block">
+            {% endif %}
+
+        {% endfor %}
+
+        <div class="card-body">
+            <h4 class="card-title">
+                t-shirt de ouf !
+            </h4>
+            <p class="card-text">
+                {% if product.subCategories %}
+                    {{ product.content | raw}}
+                {% endif %}
+            </p>
+            <p class="card-text">
+                {% if product.subCategories  %}
+                    {{ product.categories.name }}
+                {% endif %}
+            </p>
+            <p class="card-text">
+                {% if product.subCategories  %}
+                    {{ product.subCategories.name }}
+                {% endif %}
+            </p>
+            <a href=" {{ product.slugName }}" class="btn btn-primary">
+                En savoir plus !
+            </a>
+        </div>
+    </div>
+</div>

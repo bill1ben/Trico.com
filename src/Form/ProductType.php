@@ -17,12 +17,21 @@ class ProductType extends AbstractType
             ->add('description')
             ->add('price')
             ->add('content')
+            ->add('colors')
+            ->add('categories')
+            ->add('subCategories')
+            ->add('image', FileType::class,[
+                'label' => 'cover image : ',
+                'mapped' => false,
+                'required' => false
+            ])
             ->add('images', FileType::class,[
-                'label' => false,
+                'label' => "image collection",
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false
             ])
+
         ;
     }
 

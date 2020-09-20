@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modification du profile{% endblock %}
+{% block body %}
+<h1>modification de profile</h1>
+    <div class="container">
+        <h1>Inscription</h1>
+        {{ form_start(form)}}
+        {{ form_widget(form)}}
+        <button type="submit" class="btn btn-primary"> Confirmer modification</button>
+        {{ form_end(form)}}
+
+        <a href="{{ path('accounte_password')}}" class="btn btn-primary float-right m-3">changer le mot de pass</a>
+    </div>
+
+{% endblock %}
+{% block javascripts %}{% endblock %}

@@ -1,40 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}{{ product.title }}{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ product.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ product.content }}</td>
-            </tr>
-            <tr>
-                <th>CoverImage</th>
-                <td>{{ product.coverImage }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="text-center">
+        <h1 class="h1 mt-3 mb-4"> {{ product.title }} </h1>
 
-    <a href="{{ path('product_index') }}">back to list</a>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for image in product.images%}
+                            {% if image.status == 0 %}
+                                <div class="text-center">
+                                    <img src='{{ asset("uploads/#{image.name}" ) }}' alt="image" style=" height: 200px; width: 40%; margin: 10px auto;">
+
+                                </div>
+                            {% endif %}
+
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    {% for image in product.images%}
+                        {% if image.status == 1 %}
+                            <div class="col-md-4">
+                                <img src='{{ asset("uploads/#{image.name}" ) }}' alt="image" style=" height: 200px; width: 40%; margin: 10px auto;">
+                            </div>
+                        {% endif %}
+
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <table class="table" style="height:  500px">
+                    <tbody>
+
+                    <tr>
+                        <th>Title</th>
+                        <td>{{ product.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ product.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td>{{ product.price }}</td>
+                    </tr>
+                    <tr>
+                        <th>Content</th>
+                        <td>{{ product.content | raw}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="row float-right">
+            <div class="col">
+                {% set a = product.author %}
+                <div>
+                    <div class="card border-secondary mb-3">
+                        <div class="card-body">
+                            <a href="user/{{ a.Slug }}"><h4 class="card-title">{{ a.Slug }}</h4></a>
+                            <hr>
+                            <div class="card-text">
+                                <img src="{{ a.picture }}" alt="avatar de {{ a.FullName }}" class="float-left mr-3 avatar avatar-medium"  >
+                                <a href="#" class="btn btn-primary btn-sm float-right">
+                                    {{ a.products | length}} produits
+                                </a>
+                               {{ a.description | raw | raw }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <a href="{{ path('home') }}">back to list</a>
 
     <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
 

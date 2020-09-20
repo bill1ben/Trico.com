@@ -2,41 +2,118 @@
 
 namespace App\Controller;
 
+use App\Entity\Color;
 use App\Entity\Image;
 use App\Entity\Product;
+use App\Form\ColorType;
 use App\Form\ProductType;
+use App\Form\SearchType;
+use App\Repository\CategoryRepository;
+use App\Repository\ColorRepository;
 use App\Repository\ProductRepository;
+use App\Repository\SubCategoryRepository;
+use Cocur\Slugify\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/product")
+ * @Route("/")
  */
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/", name="product_index", methods={"GET"})
+     * @Route("/", name="home", methods={"GET","POST"})
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository,
+                          ColorRepository $color,
+                          CategoryRepository $categoryRepository,
+                          SubCategoryRepository $subCategoryRepository,
+                          Request $request): Response
     {
+
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
+            'colors' => $color->findAll(),
+            'allCategory' => $categoryRepository->findAll(),
+            'allSubCatego' => $subCategoryRepository->findAll()
+        ]);
+    }
+
+
+    /**
+     * @Route("/search", name="product_search_index", methods={"GET","POST"})
+     */
+    public function search(ProductRepository $productRepository,
+                          ColorRepository $color,
+                          CategoryRepository $categoryRepository,
+                          SubCategoryRepository $subCategoryRepository,
+                          Request $request): Response
+    {
+
+        $colorGet = $request->get('color');
+        $categoryGet = $request->get('category');
+        $subCategoryGet = $request->get('subCategory');
+
+        $colorGetClone = $request->get('colorClone');
+        $categoryGetClone = $request->get('categoryClone');
+        $subCategoryGetClone = $request->get('subCategoryClone');
+
+
+    if(isset($colorGet) && !empty($colorGet) )
+    {
+       $colorToSearch = $colorGet;
+    }else{
+        $colorToSearch = $colorGetClone;
+    }
+
+    if(isset($categoryGet) && !empty($categoryGet) )
+        {
+            $categoryToSearch = $categoryGet;
+        }else{
+            $categoryToSearch = $categoryGetClone;
+        }
+
+    if(isset($subCategoryGet) && !empty($subCategoryGet) )
+        {
+            $subCategoryToSearch = $subCategoryGet;
+        }else{
+        $subCategoryToSearch = $subCategoryGetClone;
+        }
+
+
+        return $this->render('product/index.html.twig', [
+            'products' => $productRepository->findBy(
+                [
+                    'colors' => $colorToSearch,
+                    'categories' => $categoryToSearch,
+                    'subCategories' => $subCategoryToSearch
+                ]
+            ),
+            'colors' => $color->findAll(),
+            'allCategory' => $categoryRepository->findAll(),
+            'allSubCatego' => $subCategoryRepository->findAll()
         ]);
     }
 
     /**
-     * @Route("/new", name="product_new", methods={"GET","POST"})
+     * @Route("/product/new", name="product_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $product = new Product();
+        $Slugify = new Slugify();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData();
+            $imageCover = $form->get('image')->getData();
+            $name = $form->get('title')->getData();
+
+            $nameSlug = $Slugify->slugify($name);
+
 
             // On boucle sur les images
             foreach($images as $image){
@@ -52,13 +129,38 @@ class ProductController extends AbstractController
                 // On stocke l'image dans la base de données (son nom)
                 $img = new Image();
                 $img->setName($fichier);
+                $img->setStatus(true);
                 $product->addImage($img);
             }
+            if($imageCover){
+                $fichier = md5(uniqid()) . '.' . $imageCover->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $imageCover->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                // On stocke l'image dans la base de données (son nom)
+                $img = new Image();
+                $img->setName($fichier);
+                $img->setStatus(false);
+                $product->addImage($img);
+            }
+
+            $product->setSlugName($nameSlug);
+
+
             $entityManager = $this->getDoctrine()->getManager();
+            $product->setAuthor($this->getUser());
             $entityManager->persist($product);
             $entityManager->flush();
+            $this->addFlash(
+                'success',
+                "le produit <strong> {$product->getTitle()}</strong> a bien été enregistrée"
+            );
 
-            return $this->redirectToRoute('product_index');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('product/new.html.twig', [
@@ -68,7 +170,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="product_show", methods={"GET"})
+     * @Route("/{slugName}", name="product_show", methods={"GET"})
      */
     public function show(Product $product): Response
     {
@@ -87,6 +189,10 @@ class ProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData();
+            $imageCover = $form->get('image')->getData();
+            $Slugify = new Slugify();
+            $name = $form->get('title')->getData();
+            $nameSlug = $Slugify->slugify($name);
 
             // On boucle sur les images
             foreach($images as $image){
@@ -102,6 +208,23 @@ class ProductController extends AbstractController
                 // On stocke l'image dans la base de données (son nom)
                 $img = new Image();
                 $img->setName($fichier);
+                $img->setStatus(true);
+                $product->addImage($img);
+            }
+            if($imageCover){
+                $fichier = md5(uniqid()) . '.' . $imageCover->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $imageCover->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                // On stocke l'image dans la base de données (son nom)
+                $img = new Image();
+                $img->setName($fichier);
+                $img->setStatus(false);
+                $product->setSlugName($nameSlug);
                 $product->addImage($img);
             }
 

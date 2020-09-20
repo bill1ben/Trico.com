@@ -2,41 +2,135 @@
 
 {% block title %}Product index{% endblock %}
 {% block body %}
-    <h1>Product index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Content</th>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-3">Bienvenue sur TRICO.COM !</h1>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">voire nos produits </a>
+            </p>
+        </div>
+        <form method="POST" action="search">
+            <label for="color[]">couleur :</label>
+            <select style="width: 200px" class="selectFiltre" name="color[]" multiple >
 
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+                {% for color in colors %}
+                    <option value="{{ color.id }}">{{ color.name }}</option>
+                {% endfor %}
+            </select>
+            <label for="category[]">categorie :</label>
+
+            <select  style="width: 300px" class="selectFiltre" name="category[]" multiple>
+                {% for Category in allCategory %}
+
+                    <option value="{{ Category.id }}">{{ Category.name }}</option>
+                {% endfor %}
+            </select>
+            <label for="category[]">sous-categorie :</label>
+            <select  style="width: 300px" class="selectFiltre" name="subCategory[]" multiple>
+                {% for subCategory in allSubCatego %}
+                    <option value="{{ subCategory.id }}">{{ subCategory.name }}</option>
+                {% endfor %}
+            </select>
+
+            <!---->
+            <select hidden name="colorClone[]" multiple>
+
+                {% for color in colors %}
+                    <option selected value="{{ color.id }}">{{ color.name }}</option>
+                {% endfor %}
+            </select>
+            <select hidden name="categoryClone[]" multiple>
+                {% for Category in allCategory %}
+
+                    <option selected value="{{ Category.id }}">{{ Category.name }}</option>
+                {% endfor %}
+            </select>
+            <select hidden name="subCategoryClone[]" multiple>
+                {% for subCategory in allSubCatego %}
+                    <option selected value="{{ subCategory.id }}">{{ subCategory.name }}</option>
+                {% endfor %}
+            </select>
+            <!---->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10">
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-primary mt-3 mb-4" type="submit" name = "submit" value = Submit>filtre</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+
+    <h1 class="h1 mt-3 mb-4">NOS T-SHIRT STAR</h1>
+    <div class="row">
         {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.title }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.content }}</td>
-                <td>
-                    <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('product_new') }}">Create new</a>
+                    <div class="col-md-4">
+                        <div class="card bg-light mb-3">
+                            <div class="card-header text-center">
+                                {{ product.title }}, <strong>{{ product.price }} $</strong> <br>
+                                <small>{{ product.description|raw }}</small>
+
+                            </div>
+                            {% for image in product.images%}
+                                {% if image.status == 0 %}
+                                    <img src='{{ asset("uploads/#{image.name}" ) }}' alt="image" style="height: 200px;width: 100%;display: block">
+                                {% endif %}
+
+                            {% endfor %}
+
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    t-shirt de ouf !
+                                </h4>
+                                <p class="card-text">
+                                    {% if product.subCategories %}
+                                    {{ product.content | raw}}
+                                    {% endif %}
+                                </p>
+                                <p class="card-text">
+                                    {% if product.subCategories  %}
+                                    {{ product.categories.name }}
+                                    {% endif %}
+                                </p>
+                                <p class="card-text">
+                                    {% if product.subCategories  %}
+                                    {{ product.subCategories.name }}
+                                    {% endif %}
+                                </p>
+                                <a href=" {{ product.slugName }}" class="btn btn-primary">
+                                    En savoir plus !
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+{#            <tr>#}
+
+{#                <td></td>#}
+{#                <td></td>#}
+{#                <td></td>#}
+{#                <td></td>#}
+{#                <td>#}
+{#                    <a href="{{ path('product_show', {'id': product.id}) }}">show</a>#}
+{#                    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>#}
+{#                </td>#}
+{#            </tr>#}
+        {% else %}
+
+        {% endfor %}
+    </div>
+    </div>
+
+{#    <a href="{{ path('product_new') }}">Create new</a>#}
 {% endblock %}
 {% block javascripts %}{% endblock %}
