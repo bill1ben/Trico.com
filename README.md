@@ -21,7 +21,7 @@ Loading Fixtures
   * Par exemple : "C'est vraiment super" devient "c-est-vraiment-super".
   
  Cycle de vie d'une entité  
-    ================
+ ==========================
   *céation mise à jour et suppression
   chaque enregistrement est une instance de la classe Entité dont il est issu
   
