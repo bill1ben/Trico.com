@@ -31,7 +31,8 @@ https://github.com/bill1ben/Trico.com/blob/ba6a0fa2cd41e6572213a6fcdb4c819a1b579
 
 sans oublier la annotation @ORM\HasLifecycleCallbacks()
   
-
-  
+ upload images
+ =============
+  (a venire)
   
     
