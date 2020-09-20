@@ -25,7 +25,7 @@ Loading Fixtures
   *céation mise à jour et suppression .
   chaque enregistrement est une instance de la classe Entité dont il est issu*
   
-mon but et de faire en sorte à chaque fois quand je cherche à sauvegarder une entité de type product (l'entitè afin de sauvgrader des t-shirt) il faut que elle-même se prendre en main et vérifie si elle a un Slug . si elle ne l'a pas alors elle va le créer.
+mon but et de faire en sorte à chaque fois quand je cherche à sauvegarder une entité de type product (l'entitè t-shirt) il faut que elle-même se prendre en main et vérifie si elle a un Slug . si elle ne l'a pas alors elle va le créer.
 
 https://github.com/bill1ben/Trico.com/blob/ba6a0fa2cd41e6572213a6fcdb4c819a1b57959f/src/Entity/Product.php#L83
 
