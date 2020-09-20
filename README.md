@@ -22,8 +22,8 @@ Loading Fixtures
   
  Cycle de vie d'une entité  
  ==========================
-  *céation, mise à jour et suppression .
-  chaque enregistrement est une instance de la classe Entité dont il est issu*
+    *céation, mise à jour et suppression .
+     chaque enregistrement est une instance de la classe Entité dont il est issu*
   
 mon but et de faire en sorte à chaque fois quand je cherche à sauvegarder une entité de type product (l'entitè t-shirt) il faut que elle-même se prend en main et vérifie si elle a un Slug . si elle ne l'a pas alors elle va le créer.
 
@@ -33,12 +33,12 @@ sans oublier la annotation @ORM\HasLifecycleCallbacks()
   
  upload images
  =============
-        afin que chaque produit à ses propres images j'ai dû gérer l'upload multiple
+     afin que chaque produit à ses propres images j'ai dû gérer l'upload multiple
  
    ### La base de données
   
-          j'ai créé l'entité /src/Entity/Image.php 
-          Nous aurons donc une table "Product" et une table "image" liées par une relation "oneToMany"
+     j'ai créé l'entité /src/Entity/Image.php 
+     Nous aurons donc une table "Product" et une table "image" liées par une relation "oneToMany"
 
   au moment où on va faire un persiste au niveau de l'entité Product il va devoir également injecter les données concernant les images qu'on aura ajouté,
   du coup j'ai ajouté sur la annotation cascade={"persist"};
@@ -49,4 +49,4 @@ sans oublier la annotation @ORM\HasLifecycleCallbacks()
       https://github.com/bill1ben/Trico.com/blob/617cd85fc2e775c3331ce27630c980b9fbe5e5ba/src/Form/ProductType.php#L28
     
    ### dossier upload
-  
+    
