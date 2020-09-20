@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
@@ -74,7 +76,17 @@ class Product
     private $author;
 
 
-
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function initializeSlug(){
+        if(empty($this->slugName))
+        {
+            $slugify = new Slugify();
+            $this->slugName = $slugify->slugify($this->title);
+        }
+    }
 
 
     public function __construct()
