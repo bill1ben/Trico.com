@@ -11,14 +11,10 @@ Loading Fixtures
     
     des jeux de fausses données sont mises en place sur l'application vous pouvez le trouver sur src/DataFixtures.php .
     
-    * afin d'avoir des données plus réaliste (des prénoms, des noms de famille, etc..) j'ai utilisé la librairie **FAKER** 
-    
-    * La librairie **Slugify** nous fournit des opérations de transformation de chaines de caractères a un équivalent compatible en URL
-      * Par exemple : "C'est vraiment super" devient "c-est-vraiment-super".
-      
-      
-  * Item 1
-* Item 2
-  * Item 2a
-  * Item 2b
+ 
+           
+* afin d'avoir des données plus réaliste (des prénoms, des noms de famille, etc..) j'ai utilisé la librairie **FAKER** 
+* La librairie **Slugify** nous fournit des opérations de transformation de chaines de caractères a un équivalent compatible en URL
+  * Par exemple : "C'est vraiment super" devient "c-est-vraiment-super".
+  
    
