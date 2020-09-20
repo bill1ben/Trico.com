@@ -37,12 +37,12 @@ sans oublier la annotation @ORM\HasLifecycleCallbacks()
  
    ### La base de données
   
-      j'ai créé l'entité /src/Entity/Image.php 
-      Nous aurons donc une table "Product" et une table "image" liées par une relation "oneToMany"
+  j'ai créé l'entité /src/Entity/Image.php 
+  Nous aurons donc une table "Product" et une table "image" liées par une relation "oneToMany"
 
-      au moment où on va faire un persiste au niveau de l'entité Product il va devoir également injecter les données concernant les images qu'on aura ajouté,
-      du coup j'ai ajouté sur la annotation cascade={"persist"};
-      https://github.com/bill1ben/Trico.com/blob/617cd85fc2e775c3331ce27630c980b9fbe5e5ba/src/Entity/Product.php#L45
+  au moment où on va faire un persiste au niveau de l'entité Product il va devoir également injecter les données concernant les images qu'on aura ajouté,
+  du coup j'ai ajouté sur la annotation cascade={"persist"};
+  https://github.com/bill1ben/Trico.com/blob/617cd85fc2e775c3331ce27630c980b9fbe5e5ba/src/Entity/Product.php#L45
   
    ### le form
   
