@@ -19,7 +19,9 @@ Loading Fixtures
 * afin d'avoir des données plus réaliste (des prénoms, des noms de famille, etc..) j'ai utilisé la librairie **FAKER** 
 * La librairie **Slugify** nous fournit des opérations de transformation de chaines de caractères a un équivalent compatible en URL
   * Par exemple : "C'est vraiment super" devient "c-est-vraiment-super".
-  
+* j'ai utilisé l'API RandomUser.me qui nous fourni des données de profils utilisateurs de façon aléatoire dont notamment des avatars
+* 
+
  Cycle de vie d'une entité  
  ==========================
     *céation, mise à jour et suppression .
@@ -70,8 +72,28 @@ sans oublier la annotation @ORM\HasLifecycleCallbacks()
     - Sur le site il doit y avoir des utilisateurs afin qu'ils puissent ajouter supprimer des produits.
     - il doit y avoir aussi des pages profils avec leur prénom leur nom , photo de profile.. et tous les produits partager par l'utilisateur.
     - un utilisateur peut commenter un produit et donner leur avis..
-    - utilisateurs peuvent modifier leur nom, prénom leur profil en général et le mot de passe **hashè** sur la base de donnè 
+    - utilisateurs peuvent modifier leur nom, prénom leur profil en général et le mot de passe **hasher** sur la base de donnè 
  
   ### base de données
+    pouvoir gérer des utilisateurs j'ai créé l'entité /src/Entity/User.php 
  
- 
+  Les utilisateurs du site pourront créer des annonces, on leur donne donc une relation OneToMany avec l'entité product
+  
+  ### Les Encodeurs
+     il permettent de hasher le mot de passe les mot de pass utilisateurs
+  
+  
+  j'ai déclaré les encodeurs sur security.yaml afin d'utiliser l'algorithme bcrypt spécifiquement sur App\Entity\User
+  https://github.com/bill1ben/Trico.com/blob/325c2deb3d190c8bef8f167ca8e727ab696df4d9/config/packages/security.yaml#L2
+  
+  ## documentation UserPasswordEncoderInterface symfony : 
+  https://symfony.com/doc/current/security.html#c-encoding-passwords
+  
+  UserPasswordEncoderInterface est une injection de dépendance elle passe par la fonction construct 
+  https://github.com/bill1ben/Trico.com/blob/325c2deb3d190c8bef8f167ca8e727ab696df4d9/src/DataFixtures/AppFixtures.php#L19
+  
+  Si l'on veut que le composant de Sécurité de Symfony comprenne et puisse utiliser notre entité User comme celle qui représente     les utilisateurs de notre système, il faut que l'entité User implémente une interface particulière : **la UserInterface**
+  
+  https://github.com/bill1ben/Trico.com/blob/325c2deb3d190c8bef8f167ca8e727ab696df4d9/src/Entity/User.php#L23
+  
+  
