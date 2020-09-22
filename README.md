@@ -86,7 +86,7 @@ sans oublier la annotation @ORM\HasLifecycleCallbacks()
   j'ai déclaré les encodeurs sur security.yaml afin d'utiliser l'algorithme bcrypt spécifiquement sur App\Entity\User
   https://github.com/bill1ben/Trico.com/blob/325c2deb3d190c8bef8f167ca8e727ab696df4d9/config/packages/security.yaml#L2
   
-  ### documentation UserPasswordEncoderInterface symfony : 
+  #### documentation UserPasswordEncoderInterface symfony : 
   https://symfony.com/doc/current/security.html#c-encoding-passwords
   
   UserPasswordEncoderInterface est une injection de dépendance elle passe par la fonction construct 
