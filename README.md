@@ -96,4 +96,7 @@ sans oublier la annotation @ORM\HasLifecycleCallbacks()
   
   https://github.com/bill1ben/Trico.com/blob/325c2deb3d190c8bef8f167ca8e727ab696df4d9/src/Entity/User.php#L23
   
+  ADMIN ROLE
+  ==========
+  (a venir)
   
